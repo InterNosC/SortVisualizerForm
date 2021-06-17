@@ -89,7 +89,7 @@ namespace SortVisualizerForm.Algoritms
         /// <summary>
         /// One step for our algorithm
         /// </summary>
-        private void NexStepInAlg()
+        public void NexStepInAlg()
         {
             for (int i = 0; i < Array.Length - 1; i++)
             {
@@ -99,6 +99,7 @@ namespace SortVisualizerForm.Algoritms
                     if (Graph != null) DrawOnDisplayElements(i, i + 1);
                 }
             }
+
         }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace SortVisualizerForm
         /// <summary>
         /// Our Thread to work on background.
         /// </summary>
-        private BackgroundWorker backgroundWorker { get; set; } = null;
+        private BackgroundWorker BackgroundWorkerElem { get; set; } = null;
 
         /// <summary>
         /// Our flag for pause.
@@ -121,9 +121,37 @@ namespace SortVisualizerForm
         {
             if (graph != null)
             {
+                BackgroundWorkerElem = new BackgroundWorker();
+                BackgroundWorkerElem.WorkerSupportsCancellation = true;
+                BackgroundWorkerElem.DoWork += new DoWorkEventHandler(BGW_DoWork);
+                BackgroundWorkerElem.RunWorkerAsync(argument: selectAlg.SelectedItem);
                 ISortEngine sortEngine = new BubbleSort(Array, graph, MaxHeight);
                 sortEngine.Process();
                 SuccessSort();
+            }
+        }
+
+        /// <summary>
+        /// Our event for BackgroundWorkerElem.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void BGW_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            BackgroundWorker bw = sender as BackgroundWorker;
+            string SortEngineName = (string)e.Argument;
+            Type type = Type.GetType("SortVisualizer." + SortEngineName);
+            var ctors = type.GetConstructors();
+            try
+            {
+                ISortEngine sortEngine = (ISortEngine)ctors[0].Invoke(new object[] { Array, graph, displayAlg.Height });
+                while (!sortEngine.checkSort() && (!BackgroundWorkerElem.CancellationPending))
+                {
+                    sortEngine.Process();
+                }
+            }
+            catch (Exception ex)
+            {
             }
         }
     }

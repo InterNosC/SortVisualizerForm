@@ -15,5 +15,6 @@ namespace SortVisualizerForm
     {
         void Process();
         bool checkSort();
+        void NexStepInAlg();
     }
 }
