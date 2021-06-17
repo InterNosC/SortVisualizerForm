@@ -14,5 +14,6 @@ namespace SortVisualizerForm
     public interface ISortEngine
     {
         void Process();
+        bool checkSort();
     }
 }

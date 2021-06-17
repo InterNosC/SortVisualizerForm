@@ -2,11 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SortVisualizerForm
@@ -21,7 +18,17 @@ namespace SortVisualizerForm
         /// <summary>
         /// Use to show progress of sorting.
         /// </summary>
-        Graphics graph { get; set; } = null;
+        private Graphics graph { get; set; } = null;
+
+        /// <summary>
+        /// Our Thread to work on background.
+        /// </summary>
+        private BackgroundWorker backgroundWorker { get; set; } = null;
+
+        /// <summary>
+        /// Our flag for pause.
+        /// </summary>
+        private bool isPaused { get; set; } = false;
 
         /// <summary>
         /// Elemenys value.
@@ -39,8 +46,26 @@ namespace SortVisualizerForm
         public SortDesktop()
         {
             InitializeComponent();
+            PopulateDeopdawn();
             this.Text = "SortDesktop";
         }
+
+        /// <summary>
+        /// Populate our combobox with classes that implements ISorEngine.
+        /// </summary>
+        private void PopulateDeopdawn()
+        {
+            List<string> ClassList = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+                .Where(x => typeof(ISortEngine).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+                .Select(x => x.Name).ToList();
+            ClassList.Sort();
+            foreach (string entry in ClassList)
+            {
+                selectAlg.Items.Add(entry);
+            }
+            selectAlg.SelectedIndex = 0;
+        }
+
         /// <summary>
         /// Exit button click.
         /// </summary>

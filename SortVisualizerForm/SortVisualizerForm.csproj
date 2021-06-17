@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algoritms\BubbleSort.cs" />
-    <Compile Include="ISortEngine.cs" />
+    <Compile Include="Algoritms\ISortEngine.cs" />
     <Compile Include="SortDesktop.cs">
       <SubType>Form</SubType>
     </Compile>

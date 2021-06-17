@@ -81,18 +81,26 @@ namespace SortVisualizerForm.Algoritms
         {
             while (!isSorted)
             {
-                for (int i = 0; i < Array.Length - 1; i++)
-                {
-                    if (Array[i] > Array[i + 1])
-                    {
-                        Swap(i, i + 1);
-                        if (Graph != null) DrawOnDisplayElements(i, i + 1);
-                    }
-                }
-
+                NexStepInAlg();
                 isSorted = checkSort();
             }
         }
+
+        /// <summary>
+        /// One step for our algorithm
+        /// </summary>
+        private void NexStepInAlg()
+        {
+            for (int i = 0; i < Array.Length - 1; i++)
+            {
+                if (Array[i] > Array[i + 1])
+                {
+                    Swap(i, i + 1);
+                    if (Graph != null) DrawOnDisplayElements(i, i + 1);
+                }
+            }
+        }
+
         /// <summary>
         /// Draw our proccess on display.
         /// </summary>
@@ -118,7 +126,5 @@ namespace SortVisualizerForm.Algoritms
             Array[i] = Array[v];
             Array[v] = tmp;
         }
-
-
     }
 }
