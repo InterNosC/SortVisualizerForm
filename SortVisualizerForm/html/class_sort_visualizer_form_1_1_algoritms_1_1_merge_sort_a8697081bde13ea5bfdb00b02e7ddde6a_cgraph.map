@@ -1,0 +1,5 @@
+<map id="SortVisualizerForm.Algoritms.MergeSort.Process" name="SortVisualizerForm.Algoritms.MergeSort.Process">
+<area shape="rect" id="node1" title="Selection Sort algorithm." alt="" coords="5,39,201,80"/>
+<area shape="rect" id="node2" href="$class_sort_visualizer_form_1_1_algoritms_1_1_merge_sort.html#a7ad31438421933be752e8c12f80a48b1" title="Check our array, if it could be sorted." alt="" coords="249,5,445,47"/>
+<area shape="rect" id="node3" href="$class_sort_visualizer_form_1_1_algoritms_1_1_merge_sort.html#ad94e1164a4584e70aeccfbd1c11fde4b" title="One step for our algorithm" alt="" coords="249,71,445,112"/>
+</map>

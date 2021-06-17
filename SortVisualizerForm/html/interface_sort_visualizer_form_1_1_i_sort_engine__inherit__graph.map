@@ -1,0 +1,6 @@
+<map id="SortVisualizerForm.ISortEngine" name="SortVisualizerForm.ISortEngine">
+<area shape="rect" id="node1" title="We are using pattern stretegy, so we implement interface for our algoritms." alt="" coords="241,5,405,127"/>
+<area shape="rect" id="node2" href="$class_sort_visualizer_form_1_1_algoritms_1_1_bubble_sort.html" title="Bubble sort." alt="" coords="5,175,201,369"/>
+<area shape="rect" id="node3" href="$class_sort_visualizer_form_1_1_algoritms_1_1_merge_sort.html" title=" " alt="" coords="225,182,421,362"/>
+<area shape="rect" id="node4" href="$class_sort_visualizer_form_1_1_algoritms_1_1_selection_sort.html" title=" " alt="" coords="445,182,641,362"/>
+</map>
