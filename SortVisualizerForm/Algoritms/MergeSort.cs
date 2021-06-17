@@ -62,9 +62,8 @@ namespace SortVisualizerForm.Algoritms
         }
         private void DrawBar(int position, int height)
         {
-
-            g.FillRectangle(BlackBrush, position, 0, 1, MaxHeight);
-            g.FillRectangle(WhiteBrush, position, MaxHeight - Array[position], 1, MaxHeight);
+            Graph.FillRectangle(BlackBrush, position, 0, 1, MaxHeight);
+            Graph.FillRectangle(WhiteBrush, position, MaxHeight - Array[position], 1, MaxHeight);
         }
 
         /// <summary>
@@ -117,33 +116,40 @@ namespace SortVisualizerForm.Algoritms
                 if (i == leftArray.Length)
                 {
                     Array[k] = rightArray[j];
-                    DrawBar(k, Array[k]);
-                    System.Threading.Thread.Sleep(1);
+                    if (Graph != null)  DrawBar(k, Array[k]);
                     j++;
                 }
                 else if (j == rightArray.Length)
                 {
                     Array[k] = leftArray[i];
-                    DrawBar(k, Array[k]);
-                    System.Threading.Thread.Sleep(1);
+                    if (Graph != null)  DrawBar(k, Array[k]);
                     i++;
                 }
                 else if (leftArray[i] <= rightArray[j])
                 {
                     Array[k] = leftArray[i];
-                    DrawBar(k, Array[k]);
-                    System.Threading.Thread.Sleep(1);
+                    if (Graph != null)  DrawBar(k, Array[k]);
                     i++;
                 }
                 else
                 {
                     Array[k] = rightArray[j];
-                    DrawBar(k, Array[k]);
-                    System.Threading.Thread.Sleep(1);
+                    if (Graph != null)  DrawBar(k, Array[k]);               
                     j++;
                 }
             }
         }
 
+        /// <summary>
+        /// Selection Sort algorithm.
+        /// </summary>
+        public void Process()
+        {
+            while (!isSorted)
+            {
+                NexStepInAlg();
+                isSorted = checkSort();
+            }
+        }
     }
 }

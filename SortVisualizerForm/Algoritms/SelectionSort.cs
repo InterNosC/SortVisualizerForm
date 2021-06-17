@@ -65,54 +65,38 @@ namespace SortVisualizerForm.Algoritms
         /// </summary>
         public void NexStepInAlg()
         {
-            for (int i = 0; i < Array.Length - 1; i++)
+            for (int i = 0, smallest = 0; i < Array.Length - 1; i++)
             {
-                int min = FindMin(Array, i);
-                int temp = Array[i];
-                Array[i] = Array[min];
-                DrawBar(i, Array[min]);
-                System.Threading.Thread.Sleep(5);
-                Array[min] = temp;
-                DrawBar(min, temp);
-                System.Threading.Thread.Sleep(5);
-            }
-        }
-
-        /// <summary>
-        /// Draw our cells.
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="height"></param>
-        private void DrawBar(int position, int height)
-        {
-
-            Graph.FillRectangle(BlackBrush, position, 0, 1, MaxHeight);
-            Graph.FillRectangle(WhiteBrush, position, MaxHeight - Array[position], 2, MaxHeight);
-            Graph.FillRectangle(WhiteBrush, position, MaxHeight - Array[position], 2, MaxHeight);
-        }
-
-
-        /// <summary>
-        /// Find minimum for our sort.
-        /// </summary>
-        /// <param name="mainArray"></param>
-        /// <param name="a"></param>
-        /// <returns></returns>
-        private int FindMin(int[] arr, int num)
-        {
-            int retloc = num;
-            int voi = arr[num];
-            for (int i = num + 1; i < arr.Length - 1; i++)
-            {
-                if (arr[i] < voi)
+                smallest = i;
+                for (int j = i + 1; j < Array.Length; j++)
                 {
-                    retloc = i;
-                    voi = arr[i];
+                    if (Array[j] < Array[smallest])
+                    {
+                        smallest = j;
+                    }
                 }
-                
+                var temp = Array[smallest];
+                Array[smallest] = Array[i];
+                Array[i] = temp;
+
+                if (Graph != null) DrawOnDisplayElements(smallest, i);
             }
-            return retloc;
         }
+
+        /// <summary>
+        /// Draw our proccess on display.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="v"></param>
+        private void DrawOnDisplayElements(int i, int v)
+        {
+            Graph.FillRectangle(BlackBrush, i, 0, 2, MaxHeight);
+            Graph.FillRectangle(BlackBrush, v, 0, 2, MaxHeight);
+
+            Graph.FillRectangle(WhiteBrush, i, MaxHeight - Array[i], 2, MaxHeight);
+            Graph.FillRectangle(WhiteBrush, v, MaxHeight - Array[v], 2, MaxHeight);
+        }
+
 
         /// <summary>
         /// Selection Sort algorithm.

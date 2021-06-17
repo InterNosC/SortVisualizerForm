@@ -36,11 +36,21 @@ namespace SortVisualizerForm.Tests
         [Test]
         public void SelectionSorting_sortingUnSortedArray_isTrue()
         {
-            var bubbleSort = new BubbleSort(new int[5] { 1, 2, 8, 4, 5 }, null, 10);
+            var selectionSort = new SelectionSort(new int[5] { 1, 2, 8, 4, 5 }, null, 10);
             var sortedArr = new int[5] { 1, 2, 4, 5, 8 };
 
-            bubbleSort.Process();
-            Assert.That(sortedArr.SequenceEqual(bubbleSort.Array));
+            selectionSort.Process();
+            Assert.That(sortedArr.SequenceEqual(selectionSort.Array));
+        }
+
+        [Test]
+        public void MergeSorting_sortingUnSortedArray_isTrue()
+        {
+            var mergeSort = new BubbleSort(new int[5] { 1, 2, 8, 4, 5 }, null, 10);
+            var sortedArr = new int[5] { 1, 2, 4, 5, 8 };
+
+            mergeSort.Process();
+            Assert.That(sortedArr.SequenceEqual(mergeSort.Array));
         }
     }
 }
