@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace SortVisualizerForm.Algoritms
 {
+    /// <summary>
+    /// Merge sort.
+    /// </summary>
     class MergeSort : ISortEngine
     {
         /// <summary>

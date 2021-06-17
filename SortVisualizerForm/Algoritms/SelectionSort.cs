@@ -2,6 +2,9 @@
 
 namespace SortVisualizerForm.Algoritms
 {
+    /// <summary>
+    /// Selection sort.
+    /// </summary>
     class SelectionSort : ISortEngine
     {
         /// <summary>
