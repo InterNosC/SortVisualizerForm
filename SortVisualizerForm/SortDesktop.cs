@@ -86,6 +86,12 @@ namespace SortVisualizerForm
                 graph.FillRectangle(new SolidBrush(Color.Green), i, MaxHeight - Array[i], 2, MaxHeight);
             }
         }
+
+        /// <summary>
+        /// Start sort Btn click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void startSort_Click(object sender, EventArgs e)
         {
             if (graph != null)
