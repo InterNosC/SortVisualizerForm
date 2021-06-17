@@ -125,9 +125,30 @@ namespace SortVisualizerForm
                 BackgroundWorkerElem.WorkerSupportsCancellation = true;
                 BackgroundWorkerElem.DoWork += new DoWorkEventHandler(BGW_DoWork);
                 BackgroundWorkerElem.RunWorkerAsync(argument: selectAlg.SelectedItem);
-                ISortEngine sortEngine = new BubbleSort(Array, graph, MaxHeight);
-                sortEngine.Process();
-                SuccessSort();
+            }
+        }
+
+        /// <summary>
+        /// Pause or Resume button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PR_btn_Click(object sender, EventArgs e)
+        {
+            if (!isPaused)
+            {
+                BackgroundWorkerElem.CancelAsync();
+                isPaused = true;
+            }
+            else
+            {
+                isPaused = false;
+                for (int i = 0; i < NumEntires; i++)
+                {
+                    graph.FillRectangle(new SolidBrush(Color.Black), i, 0, 1, MaxHeight);
+                    graph.FillRectangle(new SolidBrush(Color.White), i, MaxHeight - Array[i], 1, MaxHeight);
+                }
+                BackgroundWorkerElem.RunWorkerAsync(argument: selectAlg.SelectedItem);
             }
         }
 
@@ -138,21 +159,23 @@ namespace SortVisualizerForm
         /// <param name="e"></param>
         public void BGW_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            BackgroundWorker bw = sender as BackgroundWorker;
             string SortEngineName = (string)e.Argument;
-            Type type = Type.GetType("SortVisualizer." + SortEngineName);
+            Type type = Type.GetType("SortVisualizerForm.Algoritms." + SortEngineName);
             var ctors = type.GetConstructors();
             try
             {
-                ISortEngine sortEngine = (ISortEngine)ctors[0].Invoke(new object[] { Array, graph, displayAlg.Height });
+                ISortEngine sortEngine = (ISortEngine)ctors[0].Invoke(new object[] { Array, graph, MaxHeight });
                 while (!sortEngine.checkSort() && (!BackgroundWorkerElem.CancellationPending))
                 {
-                    sortEngine.Process();
+                    sortEngine.NexStepInAlg();
                 }
+                if (sortEngine.checkSort()) SuccessSort();
             }
             catch (Exception ex)
             {
             }
         }
+
+        
     }
 }

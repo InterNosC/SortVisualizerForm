@@ -38,6 +38,7 @@ namespace SortVisualizerForm
             this.ResetBtn = new System.Windows.Forms.Button();
             this.displayAlg = new System.Windows.Forms.Panel();
             this.startSort = new System.Windows.Forms.Button();
+            this.PR_btn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,11 +123,22 @@ namespace SortVisualizerForm
             this.startSort.UseVisualStyleBackColor = true;
             this.startSort.Click += new System.EventHandler(this.startSort_Click);
             // 
+            // PR_btn
+            // 
+            this.PR_btn.Location = new System.Drawing.Point(490, 34);
+            this.PR_btn.Name = "PR_btn";
+            this.PR_btn.Size = new System.Drawing.Size(140, 23);
+            this.PR_btn.TabIndex = 6;
+            this.PR_btn.Text = "Pause / Resume";
+            this.PR_btn.UseVisualStyleBackColor = true;
+            this.PR_btn.Click += new System.EventHandler(this.PR_btn_Click);
+            // 
             // SortDesktop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(833, 462);
+            this.Controls.Add(this.PR_btn);
             this.Controls.Add(this.startSort);
             this.Controls.Add(this.displayAlg);
             this.Controls.Add(this.ResetBtn);
@@ -154,6 +166,7 @@ namespace SortVisualizerForm
         private System.Windows.Forms.Button ResetBtn;
         private System.Windows.Forms.Panel displayAlg;
         private System.Windows.Forms.Button startSort;
+        private System.Windows.Forms.Button PR_btn;
     }
 }
 
