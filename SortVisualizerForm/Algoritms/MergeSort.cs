@@ -1,140 +1,148 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace SortVisualizer 
+namespace SortVisualizerForm.Algoritms
 {
-    class MergeSort : SortInterface
+    class MergeSort : ISortEngine
     {
-        private int[] mainArray;
-        private Graphics g;
-        private int MaxVal; // Max Val of bar Height
-        Brush RedBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White);
-        Brush BlackBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+        /// <summary>
+        /// Color white for cells.
+        /// </summary>
+        private Brush WhiteBrush = new SolidBrush(Color.White);
 
+        /// <summary>
+        /// Color black.
+        /// </summary>
+        private Brush BlackBrush = new SolidBrush(Color.Black);
 
-        public MergeSort(int[] mainArray, Graphics g, int MaxVal)
+        /// <summary>
+        /// Check if our array is sorted.
+        /// </summary>
+        private bool isSorted { get; set; } = false;
+
+        /// <summary>
+        /// Our array.
+        /// </summary>
+        public int[] Array { get; private set; }
+
+        /// <summary>
+        /// Maximum height that cells can be.
+        /// </summary>
+        private int MaxHeight { get; set; }
+
+        /// <summary>
+        /// Display.
+        /// </summary>
+        private Graphics Graph { get; set; }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="Array"></param>
+        /// <param name="graph"></param>
+        /// <param name="maxHeight"></param>
+        public MergeSort(int[] Array, Graphics graph, int maxHeight)
         {
-            this.mainArray = mainArray;
-            this.g = g;
-            this.MaxVal = MaxVal;
+            this.Array = Array;
+            this.Graph = graph;
+            this.MaxHeight = maxHeight;
         }
-        public bool isSorted()
+
+        /// <summary>
+        /// Check our array, if it could be sorted.
+        /// </summary>
+        /// <returns></returns>
+        public bool checkSort()
         {
-            for (int i = 0; i < mainArray.Count() - 1; i++)
+            for (int i = 0; i < Array.Length - 1; i++)
             {
-                if (mainArray[i] > mainArray[i + 1])
-                {
-                    return false;
-                }
+                if (Array[i] > Array[i + 1]) return false;
             }
             return true;
         }
-
-        private void drawBar(int position, int height)
+        private void DrawBar(int position, int height)
         {
 
-            g.FillRectangle(BlackBrush, position, 0, 1, MaxVal);
-            g.FillRectangle(RedBrush, position, MaxVal - mainArray[position], 1, MaxVal);
+            g.FillRectangle(BlackBrush, position, 0, 1, MaxHeight);
+            g.FillRectangle(WhiteBrush, position, MaxHeight - Array[position], 1, MaxHeight);
         }
 
-        public void nextStep()
+        /// <summary>
+        /// One step for our algorithm
+        /// </summary>
+        public void NexStepInAlg()
         {
-            mergeSort(mainArray, 0, mainArray.Count() - 1);
+            mergeSort(Array, 0, Array.Length - 1);
         }
 
-        private void mergeSort(int[] mainArray, int lo, int hi)
+        /// <summary>
+        /// Merge sort algorithm
+        /// </summary>
+        /// <param name="Array"></param>
+        /// <param name="lower"></param>
+        /// <param name="higher"></param>
+        private void mergeSort(int[] Array, int lower, int higher)
         {
-            if (lo < hi)
+            if (lower < higher)
             {
-                int middle = (lo + hi) / 2;
+                int middle = (lower + higher) / 2;
 
+                mergeSort(Array, lower, middle);
+                mergeSort(Array, middle + 1, higher);
 
-                mergeSort(mainArray, lo, middle);
-                mergeSort(mainArray, middle + 1, hi);
-
-                Merge(mainArray, lo, middle, hi);
+                Merge(Array, lower, middle, higher);
             }
         }
     
-        
-        private void Merge(int[] mainArray, int lo, int middle, int hi)
+        /// <summary>
+        /// Body merger sort;
+        /// </summary>
+        /// <param name="Array"></param>
+        /// <param name="lo"></param>
+        /// <param name="middle"></param>
+        /// <param name="higher"></param>
+        private void Merge(int[] Array, int lower, int middle, int higher)
         {
-            int[] leftArray = new int[middle - lo + 1];
-            int[] rightArray = new int[hi - middle];
+            int[] leftArray = new int[middle - lower + 1];
+            int[] rightArray = new int[higher - middle];
 
-            Array.Copy(mainArray, lo, leftArray, 0, middle - lo + 1);
-            Array.Copy(mainArray, middle + 1, rightArray, 0, hi - middle);
+
+            System.Array.Copy(Array, lower, leftArray, 0, middle - lower + 1);
+            System.Array.Copy(Array, middle + 1, rightArray, 0, higher - middle);
 
             int i = 0;
             int j = 0;
-            for (int k = lo; k < hi + 1; k++)
+            for (int k = lower; k < higher + 1; k++)
             {
                 if (i == leftArray.Length)
                 {
-                    mainArray[k] = rightArray[j];
-                    drawBar(k, mainArray[k]);
+                    Array[k] = rightArray[j];
+                    DrawBar(k, Array[k]);
                     System.Threading.Thread.Sleep(1);
                     j++;
                 }
                 else if (j == rightArray.Length)
                 {
-                    mainArray[k] = leftArray[i];
-                    drawBar(k, mainArray[k]);
+                    Array[k] = leftArray[i];
+                    DrawBar(k, Array[k]);
                     System.Threading.Thread.Sleep(1);
                     i++;
                 }
                 else if (leftArray[i] <= rightArray[j])
                 {
-                    mainArray[k] = leftArray[i];
-                    drawBar(k, mainArray[k]);
+                    Array[k] = leftArray[i];
+                    DrawBar(k, Array[k]);
                     System.Threading.Thread.Sleep(1);
                     i++;
                 }
                 else
                 {
-                    mainArray[k] = rightArray[j];
-                    drawBar(k, mainArray[k]);
+                    Array[k] = rightArray[j];
+                    DrawBar(k, Array[k]);
                     System.Threading.Thread.Sleep(1);
                     j++;
                 }
             }
-        }
-
-        /*private void slide(int[] mainArray, int loc)
-        {
-            int temp = mainArray[loc];
-            int j = loc;
-            while (j > 0 && mainArray[j - 1] > temp)
-            {
-                mainArray[j] = mainArray[j - 1];
-                drawBar(j, mainArray[j - 1]);
-                j--;
-            }
-            mainArray[j] = temp;
-            drawBar(j, temp);
-
-        }*/
-
-        public void reDraw()
-        {
-            for (int i = 0; i < (mainArray.Count() - 1); i++)
-            {
-                g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), i, MaxVal - mainArray[i], 1, MaxVal);
-            }
-        }
-        public void completeSort()
-        {
-            for (int i = 0; i < (mainArray.Count() - 1); i++)
-            {
-                g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.Purple), i, MaxVal - mainArray[i], 1, MaxVal);
-                System.Threading.Thread.Sleep(1);
-            }
-
         }
 
     }

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Algoritms\BubbleSort.cs" />
     <Compile Include="Algoritms\ISortEngine.cs" />
+    <Compile Include="Algoritms\MergeSort.cs" />
     <Compile Include="Algoritms\SelectionSort.cs" />
     <Compile Include="SortDesktop.cs">
       <SubType>Form</SubType>
