@@ -5,7 +5,7 @@ using System.Linq;
 namespace SortVisualizerForm.Tests
 {
     [TestFixture]
-    public class TestBubbleSort
+    public class TestSort
     {
         [Test]
         public void checkSort_sortedArr_isTrue()
@@ -30,6 +30,16 @@ namespace SortVisualizerForm.Tests
             var sortedArr = new int[5] { 1, 2, 4, 5, 8 };
 
             bubbleSort.BubbleSorting();        
+            Assert.That(sortedArr.SequenceEqual(bubbleSort.Array));
+        }
+
+        [Test]
+        public void SelectionSorting_sortingUnSortedArray_isTrue()
+        {
+            var bubbleSort = new BubbleSort(new int[5] { 1, 2, 8, 4, 5 }, null, 10);
+            var sortedArr = new int[5] { 1, 2, 4, 5, 8 };
+
+            bubbleSort.Process();
             Assert.That(sortedArr.SequenceEqual(bubbleSort.Array));
         }
     }

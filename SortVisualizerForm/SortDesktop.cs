@@ -142,6 +142,7 @@ namespace SortVisualizerForm
             }
             else
             {
+                if (BackgroundWorkerElem.IsBusy) return;
                 isPaused = false;
                 for (int i = 0; i < NumEntires; i++)
                 {

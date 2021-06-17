@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace SortVisualizerForm.Algoritms
 {
@@ -42,7 +37,12 @@ namespace SortVisualizerForm.Algoritms
         /// </summary>
         private Graphics Graph { get; set; }
 
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="Array"></param>
+        /// <param name="graph"></param>
+        /// <param name="maxHeight"></param>
         public BubbleSort(int[] Array, Graphics graph, int maxHeight)
         {
             this.Array = Array;
